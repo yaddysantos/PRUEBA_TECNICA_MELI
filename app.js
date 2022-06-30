@@ -18,19 +18,19 @@ var url = "";
 //     host: "http://mysql-repository.mysql.database.azure.com/",
 //     port: 3306,
 //     database: "productos_meli",
-//     user: "administrador",
-//     password:"%uTVtNe7"
+//     user: "invitado",
+//     password:"invitado1234"
 // });
 // mysqlconection.connect();
 
 //Valores
 
 //Recorrer las (5) paginas 
-for (let index = 1; index <= paginas; index++) {
+for (let page = 1; page <= paginas; page++) {
 
-    if (index > 1) { //Si es >1 quiere decir que esta en la siguiente pagina, se anexa en la url lo faltante
+    if (page > 1) { //Si es >1 quiere decir que esta en la siguiente pagina, se anexa en la url lo faltante
         Contador += 50;
-        url = "_Desde_" + Contador + "_NoIndex_True"
+        url = "_Desde_" + Contador + "_Nopage_True"
     }
     //obtener la pagina y la renderizada
     var { data } = await axios.get("https://listado.mercadolibre.com.ar/celular-smarphones" + url)
@@ -39,13 +39,20 @@ for (let index = 1; index <= paginas; index++) {
     const listaItems = $(".ui-search-layout__item")
     CantidadItems += listaItems.length
 
-    for (let index = 0; index < listaItems.length; index++) {
-        const DetalleProducto = $(".ui-search-item__title").get(index).children[0].data
-        //const PrecioProducto = Padre(".price-tag-fraction").get(index).text()
-        const startFull = $(".ui-search-reviews__ratings .ui-search-icon--star-full").get(0).children.length;
-        const startHalf = $(".ui-search-reviews__ratings .ui-search-icon--star-half").get(0).children.length * 0.5;
-        const Ranking = startFull + startHalf;
-        console.log(DetalleProducto +"  "+ Ranking)
+    for (let i = 0; i < listaItems.length; i++) {
+        var padreItem = cheerio.load(listaItems.get(i))
+        const DetalleProducto = padreItem(".ui-search-item__title").text()
+        console.log(DetalleProducto);
+        const PrecioProducto = padreItem(".price-tag-fraction").text()
+        
+        console.log("indice i="+i+" /// "+(padreItem != undefined));
+        var Ranking = 0, startFull = 0, startHalf =0;
+        if (padreItem != undefined) {
+            startFull = padreItem(".ui-search-icon--star-full").length;
+            startHalf = padreItem(".ui-search-icon--star-half").length * 0.5;
+        }
+        Ranking += startFull + startHalf;
+        console.log(Ranking);
     }
 }
 //console.log("Cantidad productos = " + CantidadItems + "\n"

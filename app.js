@@ -57,3 +57,4 @@ for (let page = 1; page <= paginas; page++) {
 console.log("Proceso guardado XD.")
 //Cerrar el proceso del MySql
 mysqlconection.end();
+process.exit(0);

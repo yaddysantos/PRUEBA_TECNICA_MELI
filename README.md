@@ -29,17 +29,17 @@ Procesos, hilos y corrutinas
 
 * Un caso en el que usarías procesos para resolver un problema y por qué.
 ```
-
+El caso para usar procesos sería una suma donde tenemos un elemento A y B, ya que conocemos dichos valores y se necesita el uno del otro para poder ejecutar la suma. 
 ```
 
 * Un caso en el que usarías threads para resolver un problema y por qué.
 ```
-
+En los threads podemos paralelizar K sumas diferentes, es decir, si necesitaramo ejecutar la suma de N grupos de valores, en este caso se podría ejecutar de a N hilos para que cada uno ejecute la suma siendo independiente.
 ```
 
 * Un caso en el que usarías corrutinas para resolver un problema y por qué.
 ```
-
+En las corrutinas tiene una diferencia a los anteriores, ya que este puede detenerse o reanudarse para evitar algún consumo innecesario, un problema sería una dll ejecutandose y este solo se activaría cada cierto tiempo o en cada acción que este reciba.
 ```
 
 Optimización de recursos del sistema operativo
@@ -47,5 +47,5 @@ Optimización de recursos del sistema operativo
 * Si tuvieras 1.000.000 de elementos y tuvieras que consultar para cada uno de ellos
 información en una API HTTP. ¿Cómo lo harías? Explicar.
 ```
-Al realizar la solicitud HTTP GET con la URI del elemento nos devuelve los detalles de cada uno, las consultas al api se seccionarian por N cantidad de elementos, dado que la cantidad total tiene un tamaño demasiado grande para una única consulta.
+Al realizar la solicitud HTTP GET desde la API (modular) con la URI del elemento y nos devuelve los detalles de cada uno, las consultas al api se seccionarian por N cantidad de elementos o lotes de manera independiente, dado que la cantidad total tiene un tamaño demasiado grande para una única consulta.
 ```
